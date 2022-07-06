@@ -1,0 +1,209 @@
+<div class="container">
+  <div class="mb-5 row">
+    <div class="col">
+      <h3 class="d-flex justify-content-center mb-3" i18n>About Bhojpur Wealth</h3>
+      <div class="about-container">
+        <p>
+          The <b>Bhojpur Wealth</b> is a comprehensive wealth management application
+          for <i>individuals</i> and <i>enterprises</i> to keep track of stocks, ETFs
+          or cryptocurrencies and make solid, data-driven investment decisions. The
+          source code is fully available as an open source software. The project has
+          been initiated by
+          <a href="https://www.bhojpur-consulting.com" title="Website of Bhojpur Consulting"
+            >Bhojpur Consulting Private Limited</a
+          >, India and is driven by the efforts of its
+          <a
+            href="https://github.com/bhojpur/wealth/graphs/contributors"
+            title="Contributors to Bhojpur Wealth"
+            >contributors</a
+          >.
+          <ng-container *ngIf="version">
+            This instance is running Bhojpur Wealth {{ version }}.
+          </ng-container>
+          <ng-container *ngIf="hasPermissionForStatistics" i18n
+            >Check the system status at
+            <a href="https://status.bhojpur-consulting.com" title="Bhojpur Wealth status"
+              >status.bhojpur-consulting.com</a
+            >.</ng-container
+          >
+        </p>
+        <p>
+          If you encounter a bug or would like to suggest an improvement or a
+          new
+          <a [routerLink]="['/features']">feature</a>, please join the
+          Bhojpur Wealth
+          <a
+            href="https://join.slack.com/t/bhojpur/shared_invite/zt-1bznh159x-ZR8xf2N_DhG6vkAhyjQKUA"
+            title="Join the Bhojpur Wealth Slack community"
+            >Slack community</a
+          >, tweet to
+          <a
+            href="https://twitter.com/bhojpurconsult"
+            title="Tweet to Bhojpur Wealth on Twitter"
+            >@bhojpurconsult</a
+          >, send an e-mail to
+          <a href="mailto:support@bhojpur-consulting.com" title="Send an e-mail"
+            >support@bhojpur-consulting.com</a
+          >
+          or open an issue at
+          <a
+            href="https://github.com/bhojpur/wealth"
+            title="Find Bhojpur Wealth on GitHub"
+            >GitHub</a
+          >.
+        </p>
+        <p class="text-center">
+          <a
+            class="mx-2"
+            href="https://twitter.com/bhojpurconsult"
+            mat-icon-button
+            title="Follow Bhojpur Wealth on Twitter"
+          >
+            <ion-icon name="logo-twitter" size="large"></ion-icon>
+          </a>
+          <a
+            class="mx-2"
+            href="mailto:support@bhojpur-consulting.com"
+            mat-icon-button
+            title="Send an e-mail"
+          >
+            <ion-icon name="mail" size="large"></ion-icon>
+          </a>
+          <a
+            class="mx-2"
+            href="https://join.slack.com/t/bhojpur/shared_invite/zt-1bznh159x-ZR8xf2N_DhG6vkAhyjQKUA"
+            mat-icon-button
+            title="Join the Bhojpur Wealth Slack channel"
+          >
+            <ion-icon name="logo-slack" size="large"></ion-icon>
+          </a>
+          <a
+            class="mx-2"
+            href="https://github.com/bhojpur/wealth"
+            mat-icon-button
+            title="Find Bhojpur Wealth on GitHub"
+          >
+            <ion-icon name="logo-github" size="large"></ion-icon>
+          </a>
+        </p>
+        <div
+          *ngIf="hasPermissionForSubscription"
+          class="d-flex justify-content-center"
+        >
+          <div
+            class="independent-and-bootstrapped-logo mb-2"
+            title="Bhojpur Wealth is an independent & bootstrapped business"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="hasPermissionForStatistics" class="mb-5 row">
+    <div class="col">
+      <h3 class="mb-3 text-center" i18n>Bhojpur Wealth in Numbers</h3>
+      <mat-card>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-xs-12 col-md-4 my-2">
+              <bc-value
+                label="Active Users"
+                size="large"
+                subLabel="(Last 24 hours)"
+                [value]="statistics?.activeUsers1d ?? '-'"
+              ></bc-value>
+            </div>
+            <div class="col-xs-12 col-md-4 my-2">
+              <bc-value
+                label="New Users"
+                size="large"
+                subLabel="(Last 30 days)"
+                [value]="statistics?.newUsers30d ?? '-'"
+              ></bc-value>
+            </div>
+            <div class="col-xs-12 col-md-4 my-2">
+              <bc-value
+                label="Active Users"
+                size="large"
+                subLabel="(Last 30 days)"
+                [value]="statistics?.activeUsers30d ?? '-'"
+              ></bc-value>
+            </div>
+            <div class="col-xs-12 col-md-4 my-2">
+              <a
+                class="d-block"
+                href="https://join.slack.com/t/bhojpur/shared_invite/zt-1bznh159x-ZR8xf2N_DhG6vkAhyjQKUA"
+              >
+                <bc-value
+                  label="Users in Slack community"
+                  size="large"
+                  [value]="statistics?.slackCommunityUsers ?? '-'"
+                ></bc-value>
+              </a>
+            </div>
+            <div class="col-xs-12 col-md-4 my-2">
+              <a
+                class="d-block"
+                href="https://github.com/bhojpur/wealth/graphs/contributors"
+              >
+                <bc-value
+                  label="Contributors on GitHub"
+                  size="large"
+                  [value]="statistics?.gitHubContributors ?? '-'"
+                ></bc-value>
+              </a>
+            </div>
+            <div class="col-xs-12 col-md-4 my-2">
+              <a
+                class="d-block"
+                href="https://github.com/bhojpur/wealth/stargazers"
+              >
+                <bc-value
+                  label="Stars on GitHub"
+                  size="large"
+                  [value]="statistics?.gitHubStargazers ?? '-'"
+                ></bc-value>
+              </a>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row">
+    <div
+      class="col-md-4 col-xs-12 my-2"
+      [ngClass]="{ 'offset-md-4': !hasPermissionForBlog }"
+    >
+      <a
+        class="py-2 w-100"
+        color="primary"
+        i18n
+        mat-stroked-button
+        [routerLink]="['/about', 'changelog']"
+        >Changelog & License</a
+      >
+    </div>
+    <div *ngIf="hasPermissionForSubscription" class="col-md-4 col-xs-12 my-2">
+      <a
+        class="py-2 w-100"
+        color="primary"
+        i18n
+        mat-stroked-button
+        [routerLink]="['/about', 'privacy-policy']"
+        >Privacy Policy</a
+      >
+    </div>
+    <div *ngIf="hasPermissionForBlog" class="col-md-4 col-xs-12 my-2">
+      <a
+        class="py-2 w-100"
+        color="primary"
+        i18n
+        mat-flat-button
+        [routerLink]="['/blog']"
+        >Blog</a
+      >
+    </div>
+  </div>
+</div>

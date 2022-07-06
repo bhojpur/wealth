@@ -1,0 +1,32 @@
+@import '~apps/client/src/styles/bhojpur-style';
+
+:host {
+  display: block;
+  z-index: 999;
+
+  .mat-toolbar {
+    background-color: var(--light-background);
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+
+    .mat-flat-button {
+      &:not(.mat-primary) {
+        background-color: transparent;
+        text-decoration-color: rgba(var(--palette-primary-500), 1) !important;
+        text-underline-offset: 0.25rem;
+      }
+
+      ion-icon {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+:host-context(.is-dark-theme) {
+  .mat-toolbar {
+    background-color: var(--dark-background);
+  }
+}

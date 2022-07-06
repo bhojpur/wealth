@@ -1,0 +1,216 @@
+<div class="container p-0">
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Time in Market</div>
+    <div class="d-flex justify-content-end">
+      <bc-value class="justify-content-end" [value]="timeInMarket"></bc-value>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col"><hr /></div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Buy</div>
+    <div class="d-flex justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.totalBuy"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Sell</div>
+    <div class="d-flex justify-content-end">
+      <span *ngIf="summary?.totalSell || summary?.totalSell === 0" class="mr-1"
+        >-</span
+      >
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.totalSell"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col"><hr /></div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Investment</div>
+    <div class="d-flex justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.committedFunds"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Absolute Gross Performance</div>
+    <div class="d-flex justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.currentGrossPerformance"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1 ml-3" i18n>Gross Performance (TWR)</div>
+    <div class="d-flex flex-column flex-wrap justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        position="end"
+        [colorizeSign]="true"
+        [isPercent]="true"
+        [locale]="locale"
+        [value]="
+          isLoading ? undefined : summary?.currentGrossPerformancePercent
+        "
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>
+      Fees for {{ summary?.ordersCount }} {summary?.ordersCount, plural, =1
+      {transaction} other {transactions}}
+    </div>
+    <div class="d-flex justify-content-end">
+      <span *ngIf="summary?.fees || summary?.fees === 0" class="mr-1">-</span>
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.fees"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col"><hr /></div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Absolute Net Performance</div>
+    <div class="d-flex justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.currentNetPerformance"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1 ml-3" i18n>Net Performance (TWR)</div>
+    <div class="d-flex flex-column flex-wrap justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        position="end"
+        [colorizeSign]="true"
+        [isPercent]="true"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.currentNetPerformancePercent"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col"><hr /></div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Total Assets</div>
+    <div class="d-flex flex-column flex-wrap justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        position="end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.currentValue"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Valuables</div>
+    <div class="d-flex justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.items"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Emergency Fund</div>
+    <div
+      class="align-items-center d-flex justify-content-end"
+      [ngClass]="{ 'cursor-pointer': hasPermissionToUpdateUserSettings }"
+      (click)="hasPermissionToUpdateUserSettings && onEditEmergencyFund()"
+    >
+      <ion-icon
+        *ngIf="hasPermissionToUpdateUserSettings && !isLoading"
+        class="mr-1 text-muted"
+        name="ellipsis-horizontal-circle-outline"
+      ></ion-icon>
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.emergencyFund"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Buying Power</div>
+    <div class="d-flex justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.cash"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col"><hr /></div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1 font-weight-bold" i18n>Net Worth</div>
+    <div class="d-flex justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.netWorth"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1 ml-3" i18n>Annualized Performance</div>
+    <div class="d-flex flex-column flex-wrap justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        position="end"
+        [colorizeSign]="true"
+        [isPercent]="true"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.annualizedPerformancePercent"
+      ></bc-value>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col"><hr /></div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="d-flex flex-grow-1" i18n>Dividend</div>
+    <div class="d-flex justify-content-end">
+      <bc-value
+        class="justify-content-end"
+        [currency]="baseCurrency"
+        [locale]="locale"
+        [value]="isLoading ? undefined : summary?.dividend"
+      ></bc-value>
+    </div>
+  </div>
+</div>

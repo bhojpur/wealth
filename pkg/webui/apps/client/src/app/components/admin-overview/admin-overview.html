@@ -1,0 +1,202 @@
+<div class="container">
+  <div class="mb-5 row">
+    <div class="col">
+      <mat-card class="mb-3">
+        <mat-card-content>
+          <div class="d-flex my-3">
+            <div class="w-50" i18n>User Count</div>
+            <div class="w-50">{{ userCount }}</div>
+          </div>
+          <div class="d-flex my-3">
+            <div class="w-50" i18n>Transaction Count</div>
+            <div class="w-50">
+              <ng-container *ngIf="transactionCount">
+                {{ transactionCount }} ({{ transactionCount / userCount | number
+                : '1.2-2' }} <span i18n>per User</span>)
+              </ng-container>
+            </div>
+          </div>
+          <div class="d-flex my-3">
+            <div class="w-50" i18n>Data Gathering</div>
+            <div class="w-50">
+              <div class="overflow-hidden">
+                <div class="mb-2">
+                  <button
+                    color="accent"
+                    mat-flat-button
+                    (click)="onGather7Days()"
+                  >
+                    <ion-icon
+                      class="mr-1"
+                      name="cloud-download-outline"
+                    ></ion-icon>
+                    <span i18n>Gather Recent Data</span>
+                  </button>
+                </div>
+                <div class="mb-2">
+                  <button
+                    color="accent"
+                    mat-flat-button
+                    (click)="onGatherMax()"
+                  >
+                    <ion-icon
+                      class="mr-1"
+                      name="cloud-download-outline"
+                    ></ion-icon>
+                    <span i18n>Gather All Data</span>
+                  </button>
+                </div>
+                <div>
+                  <button
+                    class="mb-2 mr-2"
+                    color="accent"
+                    mat-flat-button
+                    (click)="onGatherProfileData()"
+                  >
+                    <ion-icon
+                      class="mr-1"
+                      name="cloud-download-outline"
+                    ></ion-icon>
+                    <span i18n>Gather Profile Data</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="align-items-start d-flex my-3">
+            <div class="w-50" i18n>Exchange Rates</div>
+            <div class="w-50">
+              <table>
+                <tr *ngFor="let exchangeRate of exchangeRates">
+                  <td class="d-flex">
+                    <bc-value
+                      [locale]="user?.settings?.locale"
+                      [value]="1"
+                    ></bc-value>
+                  </td>
+                  <td class="pl-1">{{ exchangeRate.label1 }}</td>
+                  <td class="px-1">=</td>
+                  <td class="d-flex justify-content-end">
+                    <bc-value
+                      [locale]="user?.settings?.locale"
+                      [precision]="4"
+                      [value]="exchangeRate.value"
+                    ></bc-value>
+                  </td>
+                  <td class="pl-1">{{ exchangeRate.label2 }}</td>
+                  <td>
+                    <button
+                      *ngIf="customCurrencies.includes(exchangeRate.label2)"
+                      class="mini-icon mx-1 no-min-width px-2"
+                      mat-button
+                      (click)="onDeleteCurrency(exchangeRate.label2)"
+                    >
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+              <div class="mt-2">
+                <button
+                  color="primary"
+                  mat-flat-button
+                  (click)="onAddCurrency()"
+                >
+                  <ion-icon class="mr-1" name="add-outline"></ion-icon>
+                  <span i18n>Add Currency</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="hasPermissionForSystemMessage" class="d-flex my-3">
+            <div class="w-50" i18n>System Message</div>
+            <div class="w-50">
+              <div *ngIf="info.systemMessage">
+                <span>{{ info.systemMessage }}</span>
+                <button
+                  class="mini-icon mx-1 no-min-width px-2"
+                  mat-button
+                  (click)="onDeleteSystemMessage()"
+                >
+                  <ion-icon name="trash-outline"></ion-icon>
+                </button>
+              </div>
+              <button
+                *ngIf="!info.systemMessage"
+                color="accent"
+                mat-flat-button
+                (click)="onSetSystemMessage()"
+              >
+                <ion-icon
+                  class="mr-1"
+                  name="information-circle-outline"
+                ></ion-icon>
+                <span i18n>Set Message</span>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="hasPermissionToToggleReadOnlyMode" class="d-flex my-3">
+            <div class="w-50" i18n>Read-only Mode</div>
+            <div class="w-50">
+              <mat-slide-toggle
+                color="primary"
+                [checked]="info?.isReadOnlyMode"
+                (change)="onReadOnlyModeChange($event)"
+              ></mat-slide-toggle>
+            </div>
+          </div>
+          <div
+            *ngIf="hasPermissionForSubscription"
+            class="d-flex my-3 subscription"
+          >
+            <div class="w-50" i18n>Coupons</div>
+            <div class="w-50">
+              <div *ngFor="let coupon of coupons">
+                <span>{{ coupon.code }} ({{ coupon.duration }})</span>
+                <button
+                  class="mini-icon mx-1 no-min-width px-2"
+                  mat-button
+                  (click)="onDeleteCoupon(coupon.code)"
+                >
+                  <ion-icon name="trash-outline"></ion-icon>
+                </button>
+              </div>
+              <div class="mt-2">
+                <form #couponForm="ngForm">
+                  <mat-form-field appearance="outline" class="mr-2">
+                    <mat-select
+                      name="duration"
+                      [value]="couponDuration"
+                      (selectionChange)="onChangeCouponDuration($event.value)"
+                    >
+                      <mat-option value="7 days">7 Days</mat-option>
+                      <mat-option value="14 days">14 Days</mat-option>
+                      <mat-option value="30 days">30 Days</mat-option>
+                      <mat-option value="1 year">1 Year</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <button
+                    color="primary"
+                    mat-flat-button
+                    (click)="onAddCoupon()"
+                  >
+                    <span i18n>Add</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex my-3">
+            <div class="w-50" i18n>Housekeeping</div>
+            <div class="w-50">
+              <button color="warn" mat-flat-button (click)="onFlushCache()">
+                <ion-icon class="mr-1" name="close-circle-outline"></ion-icon>
+                <span i18n>Flush Cache</span>
+              </button>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

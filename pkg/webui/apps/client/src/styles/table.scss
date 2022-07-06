@@ -1,0 +1,33 @@
+@mixin bc-table($darkTheme: false) {
+    background: transparent !important;
+  
+    .mat-footer-row,
+    .mat-row {
+      .mat-cell,
+      .mat-footer-cell {
+        border-bottom: 0;
+      }
+    }
+  
+    .mat-row {
+      &:nth-child(even) {
+        background-color: rgba(var(--palette-foreground-base), 0.02);
+      }
+  
+      &:hover {
+        background-color: rgba(var(--palette-foreground-base), 0.05);
+      }
+    }
+  
+    @if $darkTheme {
+      .mat-row {
+        &:nth-child(even) {
+          background-color: rgba(var(--palette-foreground-base-dark), 0.02);
+        }
+  
+        &:hover {
+          background-color: rgba(var(--palette-foreground-base-dark), 0.05);
+        }
+      }
+    }
+  }

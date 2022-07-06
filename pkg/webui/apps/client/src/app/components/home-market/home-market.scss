@@ -1,0 +1,9 @@
+@import '~apps/client/src/styles/bhojpur-style';
+
+:host {
+  display: block;
+
+  bc-line-chart {
+    aspect-ratio: 16 / 9;
+  }
+}

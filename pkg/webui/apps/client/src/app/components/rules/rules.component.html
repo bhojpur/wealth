@@ -1,0 +1,19 @@
+<div class="container p-0">
+  <div class="row no-gutters">
+    <div class="col">
+      <mat-card
+        *ngIf="hasPermissionToCreateOrder && rules === null"
+        class="my-2 text-center"
+      >
+        <bc-no-transactions-info-indicator
+          [hasBorder]="false"
+        ></bc-no-transactions-info-indicator>
+      </mat-card>
+
+      <bc-rule *ngIf="rules === undefined" [isLoading]="true"></bc-rule>
+      <ng-container *ngIf="rules !== null && rules !== undefined">
+        <bc-rule *ngFor="let rule of rules" [rule]="rule"></bc-rule>
+      </ng-container>
+    </div>
+  </div>
+</div>

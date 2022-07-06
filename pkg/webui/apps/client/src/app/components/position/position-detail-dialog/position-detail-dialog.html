@@ -1,0 +1,246 @@
+<bc-dialog-header
+  mat-dialog-title
+  position="center"
+  [deviceType]="data.deviceType"
+  [title]="SymbolProfile?.name ?? SymbolProfile?.symbol"
+  (closeButtonClicked)="onClose()"
+></bc-dialog-header>
+
+<div class="flex-grow-1" mat-dialog-content>
+  <div class="container p-0">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center mb-3">
+        <bc-value
+          size="large"
+          [currency]="data.baseCurrency"
+          [locale]="data.locale"
+          [value]="value"
+        ></bc-value>
+      </div>
+    </div>
+
+    <bc-line-chart
+      class="mb-4"
+      benchmarkLabel="Average Unit Price"
+      [benchmarkDataItems]="benchmarkDataItems"
+      [currency]="SymbolProfile?.currency"
+      [historicalDataItems]="historicalDataItems"
+      [locale]="data.locale"
+      [showGradient]="true"
+      [showXAxis]="true"
+      [showYAxis]="true"
+      [symbol]="data.symbol"
+    ></bc-line-chart>
+
+    <div class="row">
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Change"
+          size="medium"
+          [colorizeSign]="true"
+          [currency]="data.baseCurrency"
+          [locale]="data.locale"
+          [value]="netPerformance"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Performance"
+          size="medium"
+          [colorizeSign]="true"
+          [isPercent]="true"
+          [locale]="data.locale"
+          [value]="netPerformancePercent"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Average Unit Price"
+          size="medium"
+          [currency]="SymbolProfile?.currency"
+          [locale]="data.locale"
+          [value]="averagePrice"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Market Price"
+          size="medium"
+          [currency]="SymbolProfile?.currency"
+          [locale]="data.locale"
+          [value]="marketPrice"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Minimum Price"
+          size="medium"
+          [currency]="SymbolProfile?.currency"
+          [locale]="data.locale"
+          [ngClass]="{ 'text-danger': minPrice?.toFixed(2) === marketPrice?.toFixed(2) && maxPrice?.toFixed(2) !== minPrice?.toFixed(2) }"
+          [value]="minPrice"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Maximum Price"
+          size="medium"
+          [currency]="SymbolProfile?.currency"
+          [locale]="data.locale"
+          [ngClass]="{ 'text-success': maxPrice?.toFixed(2) === marketPrice?.toFixed(2) && maxPrice?.toFixed(2) !== minPrice?.toFixed(2) }"
+          [value]="maxPrice"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Quantity"
+          size="medium"
+          [locale]="data.locale"
+          [precision]="quantityPrecision"
+          [value]="quantity"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Investment"
+          size="medium"
+          [currency]="data.baseCurrency"
+          [locale]="data.locale"
+          [value]="investment"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="First Buy Date"
+          size="medium"
+          [isDate]="true"
+          [locale]="data.locale"
+          [value]="firstBuyDate"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          size="medium"
+          [label]="transactionCount === 1 ? 'Transaction' : 'Transactions'"
+          [locale]="data.locale"
+          [value]="transactionCount"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Asset Class"
+          size="medium"
+          [hidden]="!SymbolProfile?.assetClass"
+          [value]="SymbolProfile?.assetClass"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Asset Sub Class"
+          size="medium"
+          [hidden]="!SymbolProfile?.assetSubClass"
+          [value]="SymbolProfile?.assetSubClass"
+        ></bc-value>
+      </div>
+      <ng-container
+        *ngIf="SymbolProfile?.countries?.length > 0 || SymbolProfile?.sectors?.length > 0"
+      >
+        <ng-container
+          *ngIf="SymbolProfile?.countries?.length === 1 && SymbolProfile?.sectors?.length === 1; else charts"
+        >
+          <div *ngIf="SymbolProfile?.sectors?.length === 1" class="col-6 mb-3">
+            <bc-value
+              label="Sector"
+              size="medium"
+              [locale]="data.locale"
+              [value]="SymbolProfile.sectors[0].name"
+            ></bc-value>
+          </div>
+          <div
+            *ngIf="SymbolProfile?.countries?.length === 1"
+            class="col-6 mb-3"
+          >
+            <bc-value
+              label="Country"
+              size="medium"
+              [locale]="data.locale"
+              [value]="SymbolProfile.countries[0].name"
+            ></bc-value>
+          </div>
+        </ng-container>
+        <ng-template #charts>
+          <div class="col-md-6 mb-3">
+            <div class="h5" i18n>Sectors</div>
+            <bc-portfolio-proportion-chart
+              [baseCurrency]="user?.settings?.baseCurrency"
+              [isInPercent]="true"
+              [keys]="['name']"
+              [locale]="user?.settings?.locale"
+              [maxItems]="10"
+              [positions]="sectors"
+            ></bc-portfolio-proportion-chart>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="h5" i18n>Countries</div>
+            <bc-portfolio-proportion-chart
+              [baseCurrency]="user?.settings?.baseCurrency"
+              [isInPercent]="true"
+              [keys]="['name']"
+              [locale]="user?.settings?.locale"
+              [maxItems]="10"
+              [positions]="countries"
+            ></bc-portfolio-proportion-chart>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+
+    <div *ngIf="orders?.length > 0" class="row">
+      <div class="col mb-3">
+        <div class="h5 mb-0" i18n>Activities</div>
+        <bc-activities-table
+          [activities]="orders"
+          [baseCurrency]="data.baseCurrency"
+          [deviceType]="data.deviceType"
+          [hasPermissionToCreateActivity]="false"
+          [hasPermissionToExportActivities]="!hasImpersonationId"
+          [hasPermissionToFilter]="false"
+          [hasPermissionToImportActivities]="false"
+          [hasPermissionToOpenDetails]="false"
+          [locale]="data.locale"
+          [showActions]="false"
+          [showSymbolColumn]="false"
+          (export)="onExport()"
+        ></bc-activities-table>
+      </div>
+    </div>
+
+    <div *ngIf="tags?.length > 0" class="row">
+      <div class="col mb-3">
+        <div class="h5" i18n>Tags</div>
+        <mat-chip-list>
+          <mat-chip *ngFor="let tag of tags">{{ tag.name }}</mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div
+      *ngIf="data.hasPermissionToReportDataGlitch === true && orders?.length > 0"
+      class="row"
+    >
+      <div class="col mb-3">
+        <hr />
+        <a color="warn" mat-stroked-button [href]="reportDataGlitchMail"
+          ><ion-icon class="mr-1" name="flag-outline"></ion-icon
+          ><span i18n>Report Data Glitch</span></a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<bc-dialog-footer
+  mat-dialog-actions
+  [deviceType]="data.deviceType"
+  (closeButtonClicked)="onClose()"
+></bc-dialog-footer>

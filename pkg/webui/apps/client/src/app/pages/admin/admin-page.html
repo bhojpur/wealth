@@ -1,0 +1,19 @@
+<router-outlet></router-outlet>
+
+<nav mat-align-tabs="center" mat-tab-nav-bar>
+  <a
+    *ngFor="let link of [
+  { iconName: 'reader-outline', path: 'overview' },
+  { iconName: 'people-outline', path: 'users' },
+  { iconName: 'server-outline', path: 'market-data' },
+  { iconName: 'flash-outline', path: 'jobs' }
+]"
+    #rla="routerLinkActive"
+    mat-tab-link
+    routerLinkActive
+    [active]="rla.isActive"
+    [routerLink]="link.path"
+  >
+    <ion-icon size="large" [name]="link.iconName"></ion-icon>
+  </a>
+</nav>

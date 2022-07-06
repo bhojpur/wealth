@@ -1,0 +1,19 @@
+@import '~apps/client/src/styles/bhojpur-style';
+
+:host {
+  display: block;
+
+  bc-position {
+    &:nth-child(even) {
+      background-color: rgba(0, 0, 0, $alpha-hover);
+    }
+  }
+}
+
+:host-context(.is-dark-theme) {
+  bc-position {
+    &:nth-child(even) {
+      background-color: rgba(255, 255, 255, $alpha-hover);
+    }
+  }
+}

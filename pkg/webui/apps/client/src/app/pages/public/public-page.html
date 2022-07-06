@@ -1,0 +1,138 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3 class="h4 mb-3 text-center" i18n>
+        Hello, someone has shared a <strong>Portfolio</strong> with you!
+      </h3>
+    </div>
+  </div>
+  <div class="proportion-charts row">
+    <div class="col-md-12 allocations-by-symbol">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="text-truncate" i18n>Positions</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            class="mx-auto"
+            [isInPercent]="true"
+            [keys]="['symbol']"
+            [positions]="symbols"
+            [showLabels]="deviceType !== 'mobile'"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="portfolioPublicDetails?.hasDetails" class="col-md-4">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="text-truncate" i18n>Currencies</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            [isInPercent]="true"
+            [keys]="['currency']"
+            [maxItems]="10"
+            [positions]="positions"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="portfolioPublicDetails?.hasDetails" class="col-md-4">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="text-truncate" i18n>Sectors</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            [isInPercent]="true"
+            [keys]="['name']"
+            [maxItems]="10"
+            [positions]="sectors"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="portfolioPublicDetails?.hasDetails" class="col-md-4">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="text-truncate" i18n>Continents</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            [isInPercent]="true"
+            [keys]="['name']"
+            [positions]="continents"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div *ngIf="portfolioPublicDetails?.hasDetails" class="row world-map-chart">
+    <div class="col-lg">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="text-truncate" i18n>Regions</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-world-map-chart
+            [countries]="countries"
+            [isInPercent]="true"
+          ></bc-world-map-chart>
+          <div class="row">
+            <div class="col-xs-12 col-md-4 my-2">
+              <bc-value
+                label="Developed Markets"
+                size="large"
+                [isPercent]="true"
+                [value]="markets?.developedMarkets?.value"
+              ></bc-value>
+            </div>
+            <div class="col-xs-12 col-md-4 my-2">
+              <bc-value
+                label="Emerging Markets"
+                size="large"
+                [isPercent]="true"
+                [value]="markets?.emergingMarkets?.value"
+              ></bc-value>
+            </div>
+            <div class="col-xs-12 col-md-4 my-2">
+              <bc-value
+                label="Other Markets"
+                size="large"
+                [isPercent]="true"
+                [value]="markets?.otherMarkets?.value"
+              ></bc-value>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg">
+      <bc-positions-table
+        pageSize="7"
+        [deviceType]="deviceType"
+        [hasPermissionToShowValues]="false"
+        [positions]="positionsArray"
+      ></bc-positions-table>
+    </div>
+  </div>
+  <div class="row my-5">
+    <div class="col-md-10 offset-md-1">
+      <h2 class="h4 mb-1 text-center">
+        Would you like to <strong>refine</strong> your
+        <strong>investment strategy</strong>?
+      </h2>
+      <p class="lead mb-3 text-center" i18n>
+        The Bhojpur Wealth empowers you to keep track of your wealth.
+      </p>
+      <div class="py-2 text-center">
+        <a color="primary" href="https://wealth.bhojpur.net" i18n mat-flat-button>
+          Get Started
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

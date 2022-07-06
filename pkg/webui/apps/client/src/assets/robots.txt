@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /about/privacy-policy
+Disallow: /p/*
+
+Sitemap: https://wealth.bhojpur.net/sitemap.xml

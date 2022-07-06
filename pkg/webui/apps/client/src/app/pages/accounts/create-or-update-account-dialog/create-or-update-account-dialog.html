@@ -1,0 +1,77 @@
+<form #addAccountForm="ngForm" class="d-flex flex-column h-100">
+  <h1 *ngIf="data.account.id" i18n mat-dialog-title>Update account</h1>
+  <h1 *ngIf="!data.account.id" i18n mat-dialog-title>Add account</h1>
+  <div class="flex-grow-1" mat-dialog-content>
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label i18n>Name</mat-label>
+        <input matInput name="name" required [(ngModel)]="data.account.name" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label i18n>Type</mat-label>
+        <mat-select name="type" required [(value)]="data.account.accountType">
+          <mat-option i18n value="CASH">Cash</mat-option>
+          <mat-option i18n value="SECURITIES">Securities</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label i18n>Currency</mat-label>
+        <mat-select name="currency" required [(value)]="data.account.currency">
+          <mat-option *ngFor="let currency of currencies" [value]="currency"
+            >{{ currency }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label i18n>Cash Balance</mat-label>
+        <input
+          matInput
+          name="balance"
+          required
+          type="number"
+          [(ngModel)]="data.account.balance"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label i18n>Platform</mat-label>
+        <mat-select name="platformId" [(value)]="data.account.platformId">
+          <mat-option [value]="null"></mat-option>
+          <mat-option *ngFor="let platform of platforms" [value]="platform.id"
+            >{{ platform.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="data.account.id">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label i18n>Account ID</mat-label>
+        <input
+          disabled
+          matInput
+          name="accountId"
+          [(ngModel)]="data.account.id"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="justify-content-end" mat-dialog-actions>
+    <button i18n mat-button (click)="onCancel()">Cancel</button>
+    <button
+      color="primary"
+      i18n
+      mat-flat-button
+      [disabled]="!addAccountForm.form.valid"
+      [mat-dialog-close]="data"
+    >
+      Save
+    </button>
+  </div>
+</form>

@@ -1,0 +1,45 @@
+@import '~apps/client/src/styles/bhojpur-style';
+
+:host {
+  color: rgb(var(--dark-primary-text));
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 5rem);
+  overflow-y: auto;
+
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: constant(safe-area-inset-bottom);
+
+  ::ng-deep {
+    bc-home-holdings,
+    bc-home-market,
+    bc-home-overview,
+    bc-home-summary {
+      flex: 1 1 auto;
+      overflow-y: auto;
+    }
+
+    .mat-tab-header {
+      border-bottom: 0;
+
+      .mat-ink-bar {
+        visibility: hidden !important;
+      }
+
+      .mat-tab-label-active {
+        color: rgba(var(--palette-primary-500), 1);
+        opacity: 1;
+      }
+
+      .mat-tab-link {
+        &:hover {
+          opacity: 0.75;
+        }
+      }
+    }
+  }
+}
+
+:host-context(.is-dark-theme) {
+  color: rgb(var(--light-primary-text));
+}

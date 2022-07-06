@@ -1,0 +1,27 @@
+:host {
+  display: block;
+
+  .icon-container {
+    background-color: rgba(var(--dark-primary-text), 0.05);
+    border-radius: 0.25rem;
+    height: 2rem;
+
+    &.okay {
+      color: var(--success);
+    }
+
+    &.warn {
+      color: var(--danger);
+    }
+  }
+
+  .evaluation {
+    line-height: 1.2;
+  }
+}
+
+:host-context(.is-dark-theme) {
+  .icon-container {
+    background-color: rgba(var(--light-primary-text), 0.05);
+  }
+}

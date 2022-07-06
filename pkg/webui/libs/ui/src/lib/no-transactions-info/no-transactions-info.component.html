@@ -1,0 +1,14 @@
+<div class="p-3">
+    <div class="d-flex justify-content-center mb-1">
+      <bc-logo size="large" [hideName]="true"></bc-logo>
+    </div>
+    <a
+      class="align-items-center justify-content-center"
+      color="primary"
+      [routerLink]="['/portfolio', 'activities']"
+      [queryParams]="{ createDialog: true }"
+      mat-button
+    >
+      <span i18n>Time to add your first activity.</span>
+    </a>
+  </div>

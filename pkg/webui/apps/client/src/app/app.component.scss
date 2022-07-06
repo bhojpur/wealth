@@ -1,0 +1,32 @@
+@import '~apps/client/src/styles/bhojpur-style';
+
+:host {
+  display: block;
+  min-height: 100vh;
+
+  main {
+    min-height: 100vh;
+    padding-top: 5rem;
+
+    .info-message-container {
+      height: 3.5rem;
+      margin-top: -0.5rem;
+
+      .info-message {
+        background-color: rgba(0, 0, 0, $alpha-hover);
+        border-radius: 2rem;
+        font-size: 80%;
+
+        a {
+          color: rgba(var(--palette-primary-500), 1);
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .footer {
+    height: 5rem;
+    line-height: 1;
+  }
+}

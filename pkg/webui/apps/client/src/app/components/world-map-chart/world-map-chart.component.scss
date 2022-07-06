@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  height: 100%;
+
+  ::ng-deep {
+    .loader {
+      height: 100% !important;
+    }
+
+    .svgMap-map-wrapper {
+      background: transparent;
+
+      .svgMap-country {
+        stroke: #e5e5e5;
+      }
+
+      .svgMap-map-controls-wrapper {
+        display: none;
+      }
+    }
+  }
+}
+
+:host-context(.is-dark-theme) {
+  ::ng-deep {
+    .svgMap-map-wrapper {
+      .svgMap-country {
+        stroke: #414141;
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+// Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output
+} from '@angular/core';
+import { PortfolioSummary } from '@bhojpur/common/interfaces';
+import { formatDistanceToNow } from 'date-fns';
+
+@Component({
+  selector: 'bc-portfolio-summary',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './portfolio-summary.component.html',
+  styleUrls: ['./portfolio-summary.component.scss']
+})
+export class PortfolioSummaryComponent implements OnChanges, OnInit {
+  @Input() baseCurrency: string;
+  @Input() hasPermissionToUpdateUserSettings: boolean;
+  @Input() isLoading: boolean;
+  @Input() locale: string;
+  @Input() summary: PortfolioSummary;
+
+  @Output() emergencyFundChanged = new EventEmitter<number>();
+
+  public timeInMarket: string;
+
+  public constructor() {}
+
+  public ngOnInit() {}
+
+  public ngOnChanges() {
+    if (this.summary) {
+      if (this.summary.firstOrderDate) {
+        this.timeInMarket = formatDistanceToNow(this.summary.firstOrderDate);
+      } else {
+        this.timeInMarket = '-';
+      }
+    } else {
+      this.timeInMarket = undefined;
+    }
+  }
+
+  public onEditEmergencyFund() {
+    const emergencyFundInput = prompt(
+      'Please enter the amount of your emergency fund:',
+      this.summary.emergencyFund.toString()
+    );
+    const emergencyFund = parseFloat(emergencyFundInput?.trim());
+
+    if (emergencyFund >= 0) {
+      this.emergencyFundChanged.emit(emergencyFund);
+    }
+  }
+}

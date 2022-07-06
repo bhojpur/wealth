@@ -1,0 +1,46 @@
+<div class="intro-container mb-5">
+  <div class="intro-inner-container mx-auto">
+    <div class="h-100 intro w-100"></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div
+      class="align-items-center d-flex flex-column justify-content-center w-100"
+    >
+      <bc-logo size="large"></bc-logo>
+      <p class="lead m-0">A professional grade Wealth Management software application</p>
+    </div>
+  </div>
+
+  <div class="button-container row">
+    <div class="align-items-center col d-flex justify-content-center">
+      <div class="py-5 text-center">
+        <button
+          class="d-inline-block"
+          color="primary"
+          i18n
+          mat-flat-button
+          [disabled]="!demoAuthToken || info?.isReadOnlyMode"
+          (click)="createAccount()"
+        >
+          Create Account
+        </button>
+        <ng-container *ngIf="hasPermissionForSocialLogin">
+          <div
+            class="m-3 text-muted"
+            i18n
+            [ngClass]="{'d-inline': deviceType !== 'mobile' }"
+          >
+            or
+          </div>
+          <a color="accent" href="/api/v1/auth/google" mat-flat-button
+            ><ion-icon class="mr-1" name="logo-google"></ion-icon
+            ><span i18n>Continue with Google</span></a
+          >
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

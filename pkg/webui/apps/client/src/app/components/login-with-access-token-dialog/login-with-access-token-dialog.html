@@ -1,0 +1,46 @@
+<bc-dialog-header
+  mat-dialog-title
+  [title]="data.title"
+  (closeButtonClicked)="onClose()"
+></bc-dialog-header>
+
+<div mat-dialog-content>
+  <div>
+    <ng-container *ngIf="data.hasPermissionToUseSocialLogin">
+      <div class="text-center">
+        <a color="accent" href="/api/v1/auth/google" mat-flat-button
+          ><ion-icon class="mr-1" name="logo-google"></ion-icon
+          ><span i18n>Sign in with Google</span></a
+        >
+      </div>
+      <div class="my-3 text-center text-muted" i18n>or</div>
+    </ng-container>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label i18n>Security Token</mat-label>
+      <textarea
+        cdkTextareaAutosize
+        matInput
+        type="text"
+        [(ngModel)]="data.accessToken"
+      ></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="flex-grow-1">
+    <mat-checkbox i18n (change)="onChangeStaySignedIn($event)"
+      >Stay signed in</mat-checkbox
+    >
+  </div>
+  <div>
+    <button
+      color="primary"
+      i18n
+      mat-flat-button
+      [disabled]="!data.accessToken"
+      [mat-dialog-close]="data"
+    >
+      Sign in
+    </button>
+  </div>
+</div>

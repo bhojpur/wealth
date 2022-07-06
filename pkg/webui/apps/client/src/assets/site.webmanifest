@@ -1,0 +1,24 @@
+{
+  "background_color": "transparent",
+  "categories": ["finance", "utilities"],
+  "description": "A private Wealth Management software application for individuals and enterprises",
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "192x192",
+      "src": "/assets/android-chrome-192x192.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "512x512",
+      "src": "/assets/android-chrome-512x512.png",
+      "type": "image/png"
+    }
+  ],
+  "name": "Bhojpur Wealth",
+  "orientation": "portrait",
+  "short_name": "Bhojpur Wealth",
+  "start_url": "https://wealth.bhojpur.net",
+  "theme_color": "#FFFFFF",
+  "url": "https://www.bhojpur.net"
+}

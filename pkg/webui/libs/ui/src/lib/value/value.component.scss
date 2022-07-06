@@ -1,0 +1,9 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    font-variant-numeric: tabular-nums;
+  
+    .h2 {
+      line-height: 1;
+    }
+  }

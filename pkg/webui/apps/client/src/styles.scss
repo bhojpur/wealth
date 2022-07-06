@@ -1,0 +1,189 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import './styles/bootstrap';
+@import './styles/table';
+
+@import '~angular-material-css-vars/src/lib/main';
+
+@import '~svgmap/dist/svgMap';
+
+$mat-css-dark-theme-selector: '.is-dark-theme';
+$mat-css-light-theme-selector: '.is-light-theme';
+
+@include init-material-css-vars() {
+  // If your app has any theme mixins, call them here.
+  // $mat-css-theme gets set to an appropriate value before this content is called.
+  // @include your-custom-component-theme($mat-css-theme);
+}
+
+:root {
+  --dark-background: rgb(39, 39, 39);
+  --light-background: rgb(255, 255, 255);
+}
+
+body {
+  font-family: var(--font-family-sans-serif);
+  margin: 0;
+  margin-bottom: 5rem;
+  min-height: 100%;
+
+  a {
+    color: var(--dark-primary-text);
+
+    &:hover {
+      color: unset;
+      text-decoration: none;
+    }
+  }
+
+  .blog {
+    a {
+      color: rgba(var(--palette-primary-500), 1) !important;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &.is-dark-theme {
+    background: var(--dark-background);
+    color: rgba(var(--light-primary-text));
+
+    a {
+      color: var(--light-primary-text);
+    }
+
+    hr {
+      border-top-color: rgba(var(--light-dividers));
+    }
+
+    ngx-skeleton-loader {
+      .loader {
+        background-color: #323232;
+      }
+    }
+
+    .bc-table {
+      @include bc-table(true);
+    }
+
+    .mat-card {
+      background: var(--dark-background);
+
+      &:not([class*='mat-elevation-z']) {
+        border-color: rgba(var(--light-dividers));
+        box-shadow: none;
+      }
+    }
+
+    .mat-dialog-container {
+      background: var(--dark-background);
+    }
+
+    .mat-fab,
+    .mat-flat-button {
+      &.mat-primary {
+        color: rgba(var(--dark-primary-text)) !important;
+      }
+    }
+
+    .svgMap-tooltip {
+      background: var(--dark-background);
+
+      .svgMap-tooltip-content table td span {
+        color: rgba(var(--light-primary-text));
+      }
+    }
+  }
+}
+
+button:focus {
+  outline: 0;
+}
+
+hr {
+  border-top: 1px solid rgba(var(--dark-dividers));
+}
+
+ion-icon {
+  pointer-events: none;
+}
+
+ngx-skeleton-loader {
+  display: block;
+  line-height: 0;
+  outline: 0;
+
+  .loader {
+    display: flex;
+    margin: 0 !important;
+    outline: 0;
+  }
+}
+
+[hidden] {
+  display: flex !important;
+  visibility: hidden;
+}
+
+.cdk-overlay-container {
+  .cdk-overlay-pane {
+    max-width: 95vw !important;
+  }
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.bc-table {
+  @include bc-table;
+}
+
+.mat-fab,
+.mat-flat-button {
+  &.mat-primary {
+    color: rgba(var(--light-primary-text)) !important;
+  }
+}
+
+.mat-card {
+  &:not([class*='mat-elevation-z']) {
+    border: 1px solid rgba(var(--dark-dividers));
+    box-shadow: none;
+  }
+}
+
+.mat-card-header-text {
+  margin: 0 !important;
+}
+
+.no-min-width {
+  min-width: unset !important;
+}
+
+.page {
+  padding-bottom: 5rem;
+}
+
+.svgMap-tooltip {
+  border-bottom: none;
+
+  .svgMap-tooltip-pointer {
+    display: none;
+  }
+}
+
+.text-decoration-underline {
+  text-decoration: underline !important;
+}
+
+.with-info-message {
+  height: calc(100vh - 5rem - 3.5rem) !important;
+}

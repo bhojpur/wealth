@@ -1,0 +1,32 @@
+@import '~apps/client/src/styles/bhojpur-style';
+
+:host {
+  display: block;
+
+  .chart-container {
+    aspect-ratio: 16 / 9;
+    max-height: 50vh;
+
+    // Fallback for aspect-ratio (using padding hack)
+    @supports not (aspect-ratio: 16 / 9) {
+      &::before {
+        float: left;
+        padding-top: 56.25%;
+        content: '';
+      }
+
+      &::after {
+        display: block;
+        content: '';
+        clear: both;
+      }
+    }
+
+    bc-line-chart {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+    }
+  }
+}

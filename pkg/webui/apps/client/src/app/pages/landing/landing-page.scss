@@ -1,0 +1,64 @@
+@import '~apps/client/src/styles/bhojpur-style';
+
+:host {
+  display: block;
+
+  .button-container {
+    .mat-stroked-button {
+      background-color: var(--light-background);
+    }
+  }
+
+  .downloads {
+    img {
+      height: 2.5rem;
+    }
+  }
+
+  .intro {
+    font-size: 4vw;
+    line-height: 1;
+
+    @media (max-width: 575.98px) {
+      font-size: 10vw;
+    }
+  }
+
+  .outro-inner-container {
+    aspect-ratio: 16 / 9;
+    max-height: 66vh;
+
+    div {
+      background-image: url('/assets/intro.jpg');
+      background-position: top left;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .video {
+    border: 1px solid rgba(var(--dark-dividers));
+
+    &:hover {
+      border-color: rgba(var(--palette-primary-500), 1);
+    }
+  }
+}
+
+:host-context(.is-dark-theme) {
+  .button-container {
+    .mat-stroked-button {
+      background-color: var(--dark-background);
+    }
+  }
+
+  .outro-inner-container {
+    div {
+      background-image: url('/assets/intro-dark.jpg') !important;
+    }
+  }
+
+  .video {
+    border-color: rgba(var(--light-dividers));
+  }
+}

@@ -1,0 +1,267 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3 class="d-flex justify-content-center mb-3" i18n>Allocations</h3>
+      <bc-activities-filter
+        [allFilters]="allFilters"
+        [isLoading]="isLoading"
+        [placeholder]="placeholder"
+        (valueChanged)="filters$.next($event)"
+      ></bc-activities-filter>
+    </div>
+  </div>
+  <div class="proportion-charts row">
+    <div class="col-md-4">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="text-truncate" i18n>By Account</mat-card-title>
+          <bc-toggle
+            [defaultValue]="period"
+            [isLoading]="false"
+            [options]="periodOptions"
+            (change)="onChangePeriod($event.value)"
+          ></bc-toggle>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            cursor="pointer"
+            [baseCurrency]="user?.settings?.baseCurrency"
+            [isInPercent]="hasImpersonationId || user.settings.isRestrictedView"
+            [keys]="['id']"
+            [locale]="user?.settings?.locale"
+            [positions]="accounts"
+            (proportionChartClicked)="onAccountChartClicked($event)"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-4">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="align-items-center d-flex text-truncate"
+            ><span i18n>By Currency</span>
+            <bc-premium-indicator
+              *ngIf="user?.subscription?.type === 'Basic'"
+              class="ml-1"
+            ></bc-premium-indicator
+          ></mat-card-title>
+          <bc-toggle
+            [defaultValue]="period"
+            [isLoading]="false"
+            [options]="periodOptions"
+            (change)="onChangePeriod($event.value)"
+          ></bc-toggle>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            [baseCurrency]="user?.settings?.baseCurrency"
+            [isInPercent]="hasImpersonationId || user.settings.isRestrictedView"
+            [keys]="['currency']"
+            [locale]="user?.settings?.locale"
+            [positions]="positions"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-4">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="align-items-center d-flex text-truncate"
+            ><span i18n>By Asset Class</span
+            ><bc-premium-indicator
+              *ngIf="user?.subscription?.type === 'Basic'"
+              class="ml-1"
+            ></bc-premium-indicator
+          ></mat-card-title>
+          <bc-toggle
+            [defaultValue]="period"
+            [isLoading]="false"
+            [options]="periodOptions"
+            (change)="onChangePeriod($event.value)"
+          ></bc-toggle>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            [baseCurrency]="user?.settings?.baseCurrency"
+            [isInPercent]="hasImpersonationId || user.settings.isRestrictedView"
+            [keys]="['assetClass', 'assetSubClass']"
+            [locale]="user?.settings?.locale"
+            [positions]="positions"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-12 allocations-by-symbol">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="align-items-center d-flex text-truncate"
+            ><span i18n>By Position</span
+            ><bc-premium-indicator
+              *ngIf="user?.subscription?.type === 'Basic'"
+              class="ml-1"
+            ></bc-premium-indicator
+          ></mat-card-title>
+          <bc-toggle
+            [defaultValue]="period"
+            [isLoading]="false"
+            [options]="periodOptions"
+            (change)="onChangePeriod($event.value)"
+          ></bc-toggle>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            class="mx-auto"
+            cursor="pointer"
+            [baseCurrency]="user?.settings?.baseCurrency"
+            [isInPercent]="hasImpersonationId || user.settings.isRestrictedView"
+            [keys]="['symbol']"
+            [locale]="user?.settings?.locale"
+            [positions]="symbols"
+            [showLabels]="deviceType !== 'mobile'"
+            (proportionChartClicked)="onSymbolChartClicked($event)"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-4">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="align-items-center d-flex text-truncate"
+            ><span i18n>By Sector</span
+            ><bc-premium-indicator
+              *ngIf="user?.subscription?.type === 'Basic'"
+              class="ml-1"
+            ></bc-premium-indicator
+          ></mat-card-title>
+          <bc-toggle
+            [defaultValue]="period"
+            [isLoading]="false"
+            [options]="periodOptions"
+            (change)="onChangePeriod($event.value)"
+          ></bc-toggle>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            [baseCurrency]="user?.settings?.baseCurrency"
+            [isInPercent]="hasImpersonationId || user.settings.isRestrictedView"
+            [keys]="['name']"
+            [locale]="user?.settings?.locale"
+            [maxItems]="10"
+            [positions]="sectors"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-4">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="align-items-center d-flex text-truncate"
+            ><span i18n>By Continent</span
+            ><bc-premium-indicator
+              *ngIf="user?.subscription?.type === 'Basic'"
+              class="ml-1"
+            ></bc-premium-indicator
+          ></mat-card-title>
+          <bc-toggle
+            [defaultValue]="period"
+            [isLoading]="false"
+            [options]="periodOptions"
+            (change)="onChangePeriod($event.value)"
+          ></bc-toggle>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            [baseCurrency]="user?.settings?.baseCurrency"
+            [isInPercent]="hasImpersonationId || user.settings.isRestrictedView"
+            [keys]="['name']"
+            [locale]="user?.settings?.locale"
+            [positions]="continents"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-4">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="align-items-center d-flex text-truncate"
+            ><span i18n>By Country</span
+            ><bc-premium-indicator
+              *ngIf="user?.subscription?.type === 'Basic'"
+              class="ml-1"
+            ></bc-premium-indicator
+          ></mat-card-title>
+          <bc-toggle
+            [defaultValue]="period"
+            [isLoading]="false"
+            [options]="periodOptions"
+            (change)="onChangePeriod($event.value)"
+          ></bc-toggle>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-proportion-chart
+            [baseCurrency]="user?.settings?.baseCurrency"
+            [isInPercent]="hasImpersonationId || user.settings.isRestrictedView"
+            [keys]="['name']"
+            [locale]="user?.settings?.locale"
+            [maxItems]="10"
+            [positions]="countries"
+          ></bc-portfolio-proportion-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row world-map-chart">
+    <div class="col-lg">
+      <mat-card class="mb-3">
+        <mat-card-header class="overflow-hidden w-100">
+          <mat-card-title class="align-items-center d-flex text-truncate"
+            ><span i18n>Regions</span
+            ><bc-premium-indicator
+              *ngIf="user?.subscription?.type === 'Basic'"
+              class="ml-1"
+            ></bc-premium-indicator
+          ></mat-card-title>
+          <bc-toggle
+            [defaultValue]="period"
+            [isLoading]="false"
+            [options]="periodOptions"
+            (change)="onChangePeriod($event.value)"
+          ></bc-toggle>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-world-map-chart
+            [baseCurrency]="user?.settings?.baseCurrency"
+            [countries]="countries"
+            [isInPercent]="hasImpersonationId || user.settings.isRestrictedView"
+          ></bc-world-map-chart>
+          <div class="row">
+            <div class="col-xs-12 col-md-4 my-2">
+              <bc-value
+                label="Developed Markets"
+                size="large"
+                [isPercent]="true"
+                [value]="markets?.developedMarkets?.value"
+              ></bc-value>
+            </div>
+            <div class="col-xs-12 col-md-4 my-2">
+              <bc-value
+                label="Emerging Markets"
+                size="large"
+                [isPercent]="true"
+                [value]="markets?.emergingMarkets?.value"
+              ></bc-value>
+            </div>
+            <div class="col-xs-12 col-md-4 my-2">
+              <bc-value
+                label="Other Markets"
+                size="large"
+                [isPercent]="true"
+                [value]="markets?.otherMarkets?.value"
+              ></bc-value>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

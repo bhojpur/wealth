@@ -1,0 +1,14 @@
+:host {
+  color: rgb(var(--dark-primary-text));
+  display: block;
+
+  .mat-card {
+    .mat-button-disabled {
+      pointer-events: none;
+    }
+  }
+}
+
+:host-context(.is-dark-theme) {
+  color: rgb(var(--light-primary-text));
+}

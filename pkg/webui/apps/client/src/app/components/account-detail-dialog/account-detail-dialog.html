@@ -1,0 +1,65 @@
+<bc-dialog-header
+  mat-dialog-title
+  position="center"
+  [deviceType]="data.deviceType"
+  [title]="name"
+  (closeButtonClicked)="onClose()"
+></bc-dialog-header>
+
+<div class="flex-grow-1" mat-dialog-content>
+  <div class="container p-0">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center mb-3">
+        <bc-value
+          size="large"
+          [currency]="user?.settings?.baseCurrency"
+          [locale]="user?.settings?.locale"
+          [value]="valueInBaseCurrency"
+        ></bc-value>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Account Type"
+          size="medium"
+          [value]="accountType"
+        ></bc-value>
+      </div>
+      <div class="col-6 mb-3">
+        <bc-value
+          label="Platform"
+          size="medium"
+          [value]="platformName"
+        ></bc-value>
+      </div>
+    </div>
+
+    <div *ngIf="orders?.length > 0" class="row">
+      <div class="col mb-3">
+        <div class="h5 mb-0" i18n>Activities</div>
+        <bc-activities-table
+          [activities]="orders"
+          [baseCurrency]="user?.settings?.baseCurrency"
+          [deviceType]="data.deviceType"
+          [hasPermissionToCreateActivity]="false"
+          [hasPermissionToExportActivities]="!hasImpersonationId"
+          [hasPermissionToFilter]="false"
+          [hasPermissionToImportActivities]="false"
+          [hasPermissionToOpenDetails]="false"
+          [locale]="user?.settings?.locale"
+          [showActions]="false"
+          [showSymbolColumn]="false"
+          (export)="onExport()"
+        ></bc-activities-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<bc-dialog-footer
+  mat-dialog-actions
+  [deviceType]="data.deviceType"
+  (closeButtonClicked)="onClose()"
+></bc-dialog-footer>

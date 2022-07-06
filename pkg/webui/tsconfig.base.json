@@ -1,0 +1,26 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+      "rootDir": ".",
+      "sourceMap": true,
+      "declaration": false,
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "importHelpers": true,
+      "target": "es2015",
+      "module": "esnext",
+      "typeRoots": ["node_modules/@types"],
+      "lib": ["es2017", "dom"],
+      "skipLibCheck": true,
+      "skipDefaultLibCheck": true,
+      "baseUrl": ".",
+      "paths": {
+        "@bhojpur/api/*": ["apps/api/src/*"],
+        "@bhojpur/client/*": ["apps/client/src/app/*"],
+        "@bhojpur/common/*": ["libs/common/src/lib/*"],
+        "@bhojpur/ui/*": ["libs/ui/src/lib/*"]
+      }
+    },
+    "exclude": ["node_modules", "tmp"]
+  }

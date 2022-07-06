@@ -1,0 +1,37 @@
+<div class="container p-0">
+  <div class="row no-gutters">
+    <div class="col">
+      <ng-container *ngIf="positions === undefined">
+        <bc-position [isLoading]="true"></bc-position>
+      </ng-container>
+      <ng-container *ngIf="positions !== undefined">
+        <ng-container *ngIf="hasPositions">
+          <bc-position
+            *ngFor="let position of positionsWithPriority"
+            [baseCurrency]="baseCurrency"
+            [deviceType]="deviceType"
+            [locale]="locale"
+            [position]="position"
+            [range]="range"
+          ></bc-position>
+          <bc-position
+            *ngFor="let position of positionsRest"
+            [baseCurrency]="baseCurrency"
+            [deviceType]="deviceType"
+            [locale]="locale"
+            [position]="position"
+            [range]="range"
+          ></bc-position>
+        </ng-container>
+        <div
+          *ngIf="hasPermissionToCreateOrder && !hasPositions"
+          class="p-3 text-center"
+        >
+          <bc-no-transactions-info-indicator
+            [hasBorder]="false"
+          ></bc-no-transactions-info-indicator>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

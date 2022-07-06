@@ -1,0 +1,39 @@
+:host {
+  display: block;
+
+  .button-container {
+    .mat-stroked-button {
+      background-color: var(--light-background);
+    }
+  }
+
+  .intro-container {
+    margin-top: -5rem;
+
+    .intro-inner-container {
+      aspect-ratio: 16 / 9;
+      max-height: 66vh;
+
+      .intro {
+        background-image: url('/assets/intro.jpg');
+        background-position: top left;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+    }
+  }
+}
+
+:host-context(.is-dark-theme) {
+  .button-container {
+    .mat-stroked-button {
+      background-color: var(--dark-background);
+    }
+  }
+
+  .intro-container {
+    .intro {
+      background-image: url('/assets/intro-dark.jpg') !important;
+    }
+  }
+}

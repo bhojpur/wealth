@@ -1,0 +1,52 @@
+{
+    "implicitDependencies": {
+      "angular.json": "*",
+      "package.json": {
+        "dependencies": "*",
+        "devDependencies": "*"
+      },
+      "tsconfig.base.json": "*",
+      ".eslintrc.json": "*",
+      "nx.json": "*"
+    },
+    "affected": {
+      "defaultBase": "origin/main"
+    },
+    "npmScope": "bhojpur",
+    "tasksRunnerOptions": {
+      "default": {
+        "runner": "@nrwl/nx-cloud",
+        "options": {
+          "accessToken": "Mjg0ZGQ2YjAtNGI4NS00NmYwLThhOWEtMWZmNmQzODM4YzU4fHJlYWQ=",
+          "cacheableOperations": [
+            "build",
+            "lint",
+            "test",
+            "e2e",
+            "build-storybook"
+          ],
+          "parallel": 1
+        }
+      }
+    },
+    "defaultProject": "api",
+    "generators": {
+      "@nrwl/angular:application": {
+        "linter": "eslint",
+        "unitTestRunner": "jest",
+        "e2eTestRunner": "cypress"
+      },
+      "@nrwl/angular:library": {
+        "linter": "eslint",
+        "unitTestRunner": "jest"
+      },
+      "@nrwl/nest": {},
+      "@nrwl/angular:component": {}
+    },
+    "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "targetDefaults": {
+      "build": {
+        "dependsOn": ["^build"]
+      }
+    }
+  }

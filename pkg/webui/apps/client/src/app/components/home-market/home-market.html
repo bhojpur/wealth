@@ -1,0 +1,43 @@
+<div class="container">
+  <h3 class="mb-3 text-center" i18n>Markets</h3>
+  <div class="mb-5 row">
+    <div class="col-xs-12 col-md-8 offset-md-2">
+      <div class="mb-2 text-center text-muted">
+        <small i18n>Last {{ numberOfDays }} Days</small>
+      </div>
+      <bc-line-chart
+        class="mb-3"
+        symbol="Fear & Greed Index"
+        yMax="100"
+        yMaxLabel="Greed"
+        yMin="0"
+        yMinLabel="Fear"
+        [historicalDataItems]="historicalData"
+        [locale]="user?.settings?.locale"
+        [showXAxis]="true"
+        [showYAxis]="true"
+      ></bc-line-chart>
+      <bc-fear-and-greed-index
+        class="d-flex justify-content-center"
+        [fearAndGreedIndex]="fearAndGreedIndex"
+        [hidden]="isLoading"
+      ></bc-fear-and-greed-index>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-xs-12 col-md-8 offset-md-2">
+      <bc-benchmark
+        *ngFor="let benchmark of benchmarks"
+        class="py-2"
+        [benchmark]="benchmark"
+        [locale]="user?.settings?.locale"
+      ></bc-benchmark>
+      <bc-benchmark
+        *ngIf="!benchmarks"
+        class="py-2"
+        [benchmark]="undefined"
+      ></bc-benchmark>
+    </div>
+  </div>
+</div>

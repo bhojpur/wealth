@@ -1,0 +1,21 @@
+<div class="container pb-3 px-3">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 offset-md-2">
+      <mat-card class="h-100">
+        <mat-card-header>
+          <mat-card-title i18n>Summary</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <bc-portfolio-summary
+            [baseCurrency]="user?.settings?.baseCurrency"
+            [hasPermissionToUpdateUserSettings]="!hasImpersonationId && hasPermissionToUpdateUserSettings"
+            [isLoading]="isLoading"
+            [locale]="user?.settings?.locale"
+            [summary]="summary"
+            (emergencyFundChanged)="onChangeEmergencyFund($event)"
+          ></bc-portfolio-summary>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

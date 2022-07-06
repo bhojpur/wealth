@@ -1,0 +1,14 @@
+<router-outlet></router-outlet>
+
+<nav mat-align-tabs="center" mat-tab-nav-bar>
+  <a
+    *ngFor="let tab of tabs"
+    #rla="routerLinkActive"
+    mat-tab-link
+    routerLinkActive
+    [active]="rla.isActive"
+    [routerLink]="tab.path"
+  >
+    <ion-icon size="large" [name]="tab.iconName"></ion-icon>
+  </a>
+</nav>

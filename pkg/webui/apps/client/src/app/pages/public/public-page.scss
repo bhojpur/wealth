@@ -1,0 +1,22 @@
+:host {
+  color: rgb(var(--dark-primary-text));
+  display: block;
+
+  .allocations-by-symbol {
+    bc-portfolio-proportion-chart {
+      max-width: 80vh;
+    }
+  }
+
+  .world-map-chart {
+    .mat-card {
+      .mat-card-content {
+        aspect-ratio: 16 / 9;
+      }
+    }
+  }
+}
+
+:host-context(.is-dark-theme) {
+  color: rgb(var(--light-primary-text));
+}
